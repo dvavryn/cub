@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:09:34 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/10 19:30:18 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/10 23:28:34 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
 
 typedef struct s_data t_data;
 typedef struct s_config t_config;
@@ -24,14 +25,14 @@ typedef struct s_map t_map;
 
 struct s_config
 {
-	char	**raw_input;
+	char	**raw_config;
 
 	char	*north_texture;
 	char	*east_texture;
 	char	*south_texture;
 	char	*west_texture;
-	int		floor_color;
-	int		ceiling_color;
+	char	*floor_color;
+	char	*ceiling_color;
 	int		player_position_x;
 	int		player_position_y;
 	char	player_orientation;	
@@ -51,6 +52,6 @@ struct s_data
 };
 
 void	free_data(t_data *data);
-void	error_exit(char *strerr, t_data *data);
+void	error_exit(char *str, t_data *data);
 void	parsing(t_data *data, int argc, char **argv);
 #endif
