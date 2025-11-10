@@ -9,7 +9,7 @@ LIBFT := libs/libft/libft.a
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
-	@make -C libs/libft
+	@make -C libs/libft -s
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
@@ -22,11 +22,11 @@ objs:
 
 clean:
 	@rm -rf objs
-	@make -C libs/libft clean
+	@make -C libs/libft clean -s
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libs/libft fclean
+	@make -C libs/libft fclean -s
 
 re: fclean all
 
