@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:12:55 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/10 22:57:07 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/11 01:22:18 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	free_data(t_data *data)
 		free(data->config.south_texture);
 	if (data->config.west_texture)
 		free(data->config.west_texture);
+	if (data->config.ceiling_color)
+		free(data->config.ceiling_color);
+	if (data->config.floor_color)
+		free(data->config.floor_color);
 	if (data->map.map)
 	{
 		i = -1;

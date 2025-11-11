@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/11 00:09:05 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/11 01:32:30 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	read_config(t_data *data, char *file)
 		free(oneline);
 		error_exit("config is empty", data);
 	}
-	data->config.raw_config = config_split(oneline, lc);
+	data->config.raw_config = config_split(oneline, lc);						// if line before empty, duplicates line -> results in double NO, dobule F and double first line of map
 	free(oneline);
 	data->config.raw_config = config_cleanup(data->config.raw_config, lc);
 	if (!data->config.raw_config)
@@ -151,15 +151,15 @@ void	get_config(t_data *data, ssize_t i)
 	char	*ptr;
 	char	*buf;
 
-	while (data->config.raw_config[++i]
-		&& !ft_strchr(" \t01", data->config.raw_config[i][0]))
+	while (data->config.raw_config[i] && (!data->config.raw_config[i][0]
+		|| !ft_strchr(" \t01", data->config.raw_config[i][0])))
 	{
 		ptr = data->config.raw_config[i];
 		buf = ft_strdup(ptr);
 		if (!buf)
 			error_exit("malloc failed", data);
 		if (!ft_strncmp("NO ", ptr, 3))
-			data->config.north_texture = buf;
+			data->config.north_texture = buf;		// leaking
 		else if (!ft_strncmp("EA ", ptr, 3))
 			data->config.east_texture = buf;
 		else if (!ft_strncmp("SO ", ptr, 3))
@@ -167,11 +167,13 @@ void	get_config(t_data *data, ssize_t i)
 		else if (!ft_strncmp("WE ", ptr, 3))
 			data->config.west_texture = buf;
 		else if (!ft_strncmp("F ", ptr, 2))
-			data->config.floor_color = buf;
+			data->config.floor_color = buf;			// leaking
 		else if (!ft_strncmp("C ", ptr, 2))
 			data->config.ceiling_color = buf;
 		else
 			free(buf);
+		buf = NULL;
+		i++;
 	}
 }
 
@@ -221,11 +223,9 @@ void	check_chars(t_data *data, char **map)
 {
 	ssize_t	i;
 	ssize_t	j;
-	ssize_t	pos;
 
 	i = -1;
 	j = -1;
-	pos = -1;
 	while (map[++i])
 	{
 		j = -1;
@@ -235,21 +235,92 @@ void	check_chars(t_data *data, char **map)
 				error_exit("invalid character inside of map", data);
 			if (ft_strchr("NSEW", map[i][j]))
 			{
+				if (data->config.player_orientation)
+					error_exit("invalid amount of starting positions", data);
 				data->config.player_position_x = j;
 				data->config.player_position_y = i;
 				data->config.player_orientation = map[i][j];
-				pos++;
+				map[i][j] = '0';
 			}
 		}
 	}
-	if (pos)
-		error_exit("invalid amount of starting positions", data);
 }
 
+size_t	get_size_map(char **config, char c)
+{
+	size_t	out;
+	size_t	i;
+	out = 0;
+	if (c == 'l')
+	{
+		i = 0;
+		while (config[i])
+		{
+			if (ft_strlen(config[i]) > out)
+				out = ft_strlen(config[i]);
+			i++;
+		}
+	}
+	else
+	{
+		while (config[out])
+			out++;
+	}
+	return (out);
+}
+
+void	alloc_map(t_data *data, char **config)
+{
+	size_t	i;
+
+	data->map.map_x = get_size_map(config, 'l');
+	data->map.map_y = get_size_map(config, 'h');
+	data->map.map = ft_calloc(data->map.map_y + 1, sizeof(int *));
+	if (!data->map.map)
+		error_exit("malloc failed", data);
+	i = 0;
+	while (i < data->map.map_y)
+	{
+		data->map.map[i] = ft_calloc(data->map.map_x, sizeof(int));
+		if (!data->map.map[i])
+			error_exit("malloc failed", data);
+		i++;
+	}
+}
+
+void	convert_map(t_data *data, char **con)
+{
+	size_t	i;
+	size_t	j;
+	int		**map;
+
+	map = data->map.map;
+	i = 0;
+	while (con[i])
+	{
+		j = 0;
+		while (con[i][j])
+		{
+			if (con[i][j] == ' ')
+				map[i][j] = -1;
+			else if (con[i][j] == '1')
+				map[i][j] = 1;
+			j++;
+		}
+		while (j < data->map.map_x)
+		{
+			map[i][j] = -1;
+			j++;
+		}
+		i++;
+	}
+}
 
 void	validate_map(t_data *data)
 {
 	check_chars(data, data->config.raw_config);
+	alloc_map(data, data->config.raw_config);
+	convert_map(data, data->config.raw_config);
 }
 
 void	parsing(t_data *data, int argc, char **argv)
@@ -257,7 +328,12 @@ void	parsing(t_data *data, int argc, char **argv)
 	ft_bzero(data, sizeof(t_data));
 	argcheck(argc, argv);
 	read_config(data, argv[1]);
-	get_config(data, -1);
+	get_config(data, 0);
+	if (!data->config.north_texture || !data->config.east_texture
+		|| !data->config.south_texture || !data->config.west_texture)
+		error_exit("textures missing", data);
+	if (!data->config.floor_color || !data->config.ceiling_color)
+		error_exit("colors missing", data);
 	extract_map(data);
 	validate_map(data);
 }
