@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/11 01:32:30 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/11 18:10:28 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**config_split(char *oneline, size_t lines)
 			return (free_split(out), NULL);
 		if (!ft_strchr(ptr, '\n'))
 			break ;
-		ptr = ft_strchr(ptr, '\n') + 1;
+		ptr = ft_strchr(ptr + 1, '\n');
 	}
 	return (out);
 }
@@ -139,7 +139,7 @@ void	read_config(t_data *data, char *file)
 		free(oneline);
 		error_exit("config is empty", data);
 	}
-	data->config.raw_config = config_split(oneline, lc);						// if line before empty, duplicates line -> results in double NO, dobule F and double first line of map
+	data->config.raw_config = config_split(oneline, lc);
 	free(oneline);
 	data->config.raw_config = config_cleanup(data->config.raw_config, lc);
 	if (!data->config.raw_config)
@@ -158,20 +158,26 @@ void	get_config(t_data *data, ssize_t i)
 		buf = ft_strdup(ptr);
 		if (!buf)
 			error_exit("malloc failed", data);
-		if (!ft_strncmp("NO ", ptr, 3))
-			data->config.north_texture = buf;		// leaking
-		else if (!ft_strncmp("EA ", ptr, 3))
+		if (!ft_strncmp("NO ", ptr, 3) && !data->config.north_texture)
+			data->config.north_texture = buf;
+		else if (!ft_strncmp("EA ", ptr, 3) && !data->config.east_texture)
 			data->config.east_texture = buf;
-		else if (!ft_strncmp("SO ", ptr, 3))
+		else if (!ft_strncmp("SO ", ptr, 3) && !data->config.south_texture)
 			data->config.south_texture = buf;
-		else if (!ft_strncmp("WE ", ptr, 3))
+		else if (!ft_strncmp("WE ", ptr, 3) && !data->config.west_texture)
 			data->config.west_texture = buf;
-		else if (!ft_strncmp("F ", ptr, 2))
-			data->config.floor_color = buf;			// leaking
-		else if (!ft_strncmp("C ", ptr, 2))
+		else if (!ft_strncmp("F ", ptr, 2) && !data->config.floor_color)
+			data->config.floor_color = buf;
+		else if (!ft_strncmp("C ", ptr, 2) && !data->config.ceiling_color)
 			data->config.ceiling_color = buf;
 		else
+		{
 			free(buf);
+			if (!ft_strncmp("NO ", ptr, 3) || !ft_strncmp("EA ", ptr, 3)
+				|| !ft_strncmp("SO ", ptr, 3) || !ft_strncmp("WE ", ptr, 3)
+				|| !ft_strncmp("F ", ptr, 2) || !ft_strncmp("C ", ptr, 2))	
+				error_exit("multipe definition for color or texture path ", data);
+		}
 		buf = NULL;
 		i++;
 	}
@@ -316,13 +322,100 @@ void	convert_map(t_data *data, char **con)
 	}
 }
 
+void	check_map(t_data*data, int **map, size_t x, size_t y)
+{
+	size_t	i;
+	size_t	j;
+	i = 0;
+	while (i < y)
+	{
+		j = 0;
+		while (j < x)
+		{
+			if (!map[i][j])
+			{
+				if (i == 0 || j == 0 || j + 1 == x || i + 1 == y)
+					error_exit("map not surrounded by walls", data);
+				else if ((i - 1 >= 0 && map[i - 1][j] == -1)
+					|| (i + 1 < y && map[i + 1][j] == -1)
+					|| (j - 1 >= 0 && map[i][j - 1] == -1)
+					|| (j + 1 < x && map[i][j + 1] == -1))
+					error_exit("map not surrounded by walls", data);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	validate_map(t_data *data)
 {
 	check_chars(data, data->config.raw_config);
 	alloc_map(data, data->config.raw_config);
 	convert_map(data, data->config.raw_config);
+	check_map(data, data->map.map, data->map.map_x, data->map.map_y);
 }
 
+int	color_check_format(char *s)
+{
+	ssize_t	i;
+
+	i = 0;
+	while (s[++i] && ft_isdigit(s[i]))
+		;
+	if (s[i])
+		return (0);
+	return (1);
+}
+
+int	convert_color(char *s, int *err)
+{
+	char	**split;
+	size_t	i;
+	int		j;
+	int		out;
+
+	split = ft_split(s + 2, ',');
+	if (!split)
+	{
+		*err = 1;
+		return (-1);
+	}
+	i = 0;
+	while (split[++i])
+	{
+		j = 0;
+		printf("%s\n", split[i]);
+		if (!color_check_format(split[i]))
+			return (free_split(split), -1);
+		j = ft_atoi(split[i]);
+		if (j < 0 || j > 255)
+			return (free_split(split), -1);
+		i++;
+	}
+	if (i != 3)
+		return (free_split(split), -1);
+	out = (ft_atoi(split[0]) << 16) + (ft_atoi(split[1]) << 8) + ft_atoi(split[2]);
+	return (free_split(split), out);
+}
+
+void	check_colors(t_data *data)
+{
+	char	*c;
+	char	*f;
+	int		err;
+
+	err = 0;
+	c = data->config.ceiling_color;
+	f = data->config.floor_color;
+	data->config.floor_color_hex = convert_color(data->config.floor_color, &err);
+	data->config.ceiling_color_hex = convert_color(data->config.ceiling_color, &err);
+	if (err == 1)
+		error_exit("malloc failed", data);
+	if (data->config.floor_color_hex == -1 || data->config.ceiling_color_hex == -1)
+		error_exit("wrong color format", data);
+	
+}
 void	parsing(t_data *data, int argc, char **argv)
 {
 	ft_bzero(data, sizeof(t_data));
@@ -334,6 +427,8 @@ void	parsing(t_data *data, int argc, char **argv)
 		error_exit("textures missing", data);
 	if (!data->config.floor_color || !data->config.ceiling_color)
 		error_exit("colors missing", data);
+	check_colors(data);
 	extract_map(data);
 	validate_map(data);
+	
 }

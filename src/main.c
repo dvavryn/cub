@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:10:05 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/11 01:26:01 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/11 18:12:40 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_data(t_data *data)
 	printf(
 	"Config\n"
 	"\tNorth: %s\n\tEast:  %s\n\tSouth: %s\n\tWest:  %s\n\n"
-	"\tFloor:   %s\n\tCeiling: %s\n\n\tPos-X:		  %d\n\t"
+	"\tFloor:   %s - 0x%x\n\tCeiling: %s - 0x%x\n\n\tPos-X:		  %d\n\t"
 	"Pos-Y:		  %d\n\tOrientations: %c\n\n\nMap\n\tsize x: %zu\n"
 	"\tsize y: %zu\n"
 	, c->north_texture, c->east_texture, c->south_texture, c->west_texture,
-	c->floor_color, c->ceiling_color, c->player_position_x, c->player_position_y,
-	c->player_orientation, m->map_x, m->map_y);
+	c->floor_color, c->floor_color_hex, c->ceiling_color, c->ceiling_color_hex,
+	c->player_position_x, c->player_position_y,	c->player_orientation, m->map_x, m->map_y);
 	for(int i = 0; m->map[i]; i++)
 	{
 		printf("\t");
@@ -48,7 +48,6 @@ int main(int argc, char **argv)
 
 	parsing(&data, argc, argv);
 
-	// print_data(&data);
-	
 	free_data(&data);
+	return (0);
 }
