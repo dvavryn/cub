@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:10:05 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/11 18:12:40 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/11/12 21:39:55 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int main(int argc, char **argv)
 	t_data	data;
 
 	parsing(&data, argc, argv);
+
+	print_data(&data);
 
 	free_data(&data);
 	return (0);
