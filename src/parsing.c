@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/11/13 16:29:39 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/02 16:17:42 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,8 @@ void	check_chars(t_data *data, char **map)
 			}
 		}
 	}
+	if (!data->config.player_orientation)
+		error_exit("no player on the map!", data);
 }
 
 size_t	get_size_map(char **config, char c)
@@ -299,10 +301,8 @@ void	convert_map(t_data *data, char **con)
 	size_t	i;
 	size_t	j;
 	int		**map;
-	int		player;
 
 	map = data->map.map;
-	player = 0;
 	i = 0;
 	while (con[i])
 	{
@@ -313,8 +313,6 @@ void	convert_map(t_data *data, char **con)
 				map[i][j] = -1;
 			else if (con[i][j] == '1')
 				map[i][j] = 1;
-			if (ft_strchr("NSEW", con[i][j]))
-				player++;
 			j++;
 		}
 		while (j < data->map.map_x)
@@ -324,8 +322,6 @@ void	convert_map(t_data *data, char **con)
 		}
 		i++;
 	}
-	if (player != 1)
-		error_exit("player count != 1", data);
 }
 
 void	check_map(t_data*data, int **map, size_t x, size_t y)
