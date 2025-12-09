@@ -1,6 +1,6 @@
 NAME := cub3d
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -g
 INC := -Iinc -Ilibs/libft
 SRCS := $(wildcard src/*.c)
 OBJS := $(patsubst src/%.c, objs/%.o, $(SRCS))
@@ -12,10 +12,11 @@ $(LIBFT):
 	@make -C libs/libft -s
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lmlx -lX11 -lXext -lm
+	@echo "Compilation completed!"
 
 objs/%.o: src/%.c | objs
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 objs:
 	@mkdir -p objs

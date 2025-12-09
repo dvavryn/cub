@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/02 16:17:42 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:05:30 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,6 @@ int	convert_color(char *s, int *err)
 	while (split[++i])
 	{
 		j = 0;
-		printf("%s\n", split[i]);
 		if (!color_check_format(split[i]))
 			return (free_split(split), -1);
 		j = ft_atoi(split[i]);
@@ -418,6 +417,30 @@ void	check_colors(t_data *data)
 		error_exit("wrong color format", data);
 	
 }
+
+int try_open(char *filename)
+{
+	int fd;
+
+	fd = open(filename + 3, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	close(fd);
+	return 1;
+}
+
+void	validate_files(t_data *data)
+{
+	if (!try_open(data->config.north_texture))
+		error_exit("north_texture invalid", data);
+	if (!try_open(data->config.east_texture))
+		error_exit("east_texture invalid", data);
+	if (!try_open(data->config.south_texture))
+		error_exit("south_texture invalid", data);
+	if (!try_open(data->config.west_texture))
+		error_exit("west_texture invalid", data);
+}
+
 void	parsing(t_data *data, int argc, char **argv)
 {
 	ft_bzero(data, sizeof(t_data));
@@ -432,5 +455,5 @@ void	parsing(t_data *data, int argc, char **argv)
 	check_colors(data);
 	extract_map(data);
 	validate_map(data);
-	
+	validate_files(data);
 }
