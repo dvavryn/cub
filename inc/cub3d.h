@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:43:58 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 22:07:34 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ struct s_config
 
 struct s_point
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 };
 
 struct s_data

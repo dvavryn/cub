@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:45:13 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:15:35 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 22:08:28 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	render(t_data *cub)
 	ft_bzero(cub->mlx.image.address, WIN_H * cub->mlx.image.line_length);
 	cast_all_rays_3d(cub);
 	draw_minimap(cub);
-	draw_player(cub);
 	cast_rays_minimap(cub);
+	draw_player(cub);
 	draw_crosshair(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
 		cub->mlx.image.img, 0, 0);
