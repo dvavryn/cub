@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 20:45:26 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:09:50 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ struct s_dda
 	double	deltadisty;
 	double	sidedistx;
 	double	sidedisty;
+
+	double *hitx;
+	double *hity;
+
+	int mapx;
+	int mapy;
 };
 
 struct s_mlx
