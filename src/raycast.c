@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 14:35:37 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 16:23:42 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:02:40 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ double	cast_ray(t_data *cub, double angle, double *hit_x, double *hit_y)
 		y += ray_y * RAY_STEP;
 		dist += RAY_STEP;
 		if (x < 0 || x >= (double)WIN_W || y < 0 || y >= (double)WIN_H
-			|| is_wall(cub->map, x, y))
+			|| is_wall(cub->map.map, x, y))
 			break ;
 	}
 	if (hit_x)

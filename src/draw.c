@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 16:36:49 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:57:23 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_minimap(t_data *cub)
 	int		color;
 	double	tile_size;
 
-	get_map_dimensions(cub->map, &map_width, &map_height);
+	get_map_dimensions(cub->map.map, &map_width, &map_height);
 	my = 0;
 	tile_size = 128 / (double)map_width;
 	if (128 / (double)map_height < tile_size)
@@ -46,9 +46,9 @@ void	draw_minimap(t_data *cub)
 		while (mx < map_width)
 		{
 			color = 0x999999;
-			if (mx < (int)strlen(cub->map[my]) && cub->map[my][mx] == '1') //ft_strlen
+			if (mx < ft_intlen(cub->map.map[my]) && cub->map.map[my][mx] == 1)
 				color = 0x444444;
-			draw_square(&cub->image, MINI_OFFSET + (int)(mx * tile_size),
+			draw_square(&cub->mlx.image, MINI_OFFSET + (int)(mx * tile_size),
 				MINI_OFFSET + (int)(my * tile_size), tile_size + 0.9999, color);
 			mx++;
 		}
@@ -64,14 +64,14 @@ void	draw_player(t_data *cub)
 	int		map_height;
 	double	tile_size;
 
-	get_map_dimensions(cub->map, &map_width, &map_height);
+	get_map_dimensions(cub->map.map, &map_width, &map_height);
 	if (128 / map_width < 128 / map_height)
 		tile_size = 128 / map_width;
 	else
 		tile_size = 128 / map_height;
 	minix = MINI_OFFSET + (int)(cub->player.x / TILE * tile_size);
 	miniy = MINI_OFFSET + (int)(cub->player.y / TILE * tile_size);
-	draw_circle(&cub->image, minix, miniy, 2, 0xFF0000);
+	draw_circle(&cub->mlx.image, minix, miniy, 2, 0xFF0000);
 }
 
 void	draw_line(t_img *img, double x0, double y0, double x1, double y1)
@@ -111,7 +111,7 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 	double	ray_tile_x;
 	double	ray_tile_y;
 
-	get_map_dimensions(cub->map, &map_width, &map_height);
+	get_map_dimensions(cub->map.map, &map_width, &map_height);
 	if (128 / map_width < 128 / map_height)
 		tile_size = 128 / map_width;
 	else
@@ -126,7 +126,7 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 		ray_tile_y = 0;
 	if (ray_tile_y >= map_height)
 		ray_tile_y = map_height - 1;
-	draw_line(&cub->image, MINI_OFFSET + (cub->player.x / TILE) * tile_size, MINI_OFFSET + (cub->player.y / TILE) * tile_size,
+	draw_line(&cub->mlx.image, MINI_OFFSET + (cub->player.x / TILE) * tile_size, MINI_OFFSET + (cub->player.y / TILE) * tile_size,
 		MINI_OFFSET + ray_tile_x * tile_size, MINI_OFFSET + ray_tile_y * tile_size);
 }
 
@@ -158,7 +158,7 @@ void	draw_3d_wall(t_data *cub, int x, double dist)
 		bottom = WIN_H - 1;
 	y = -1;
 	while (++y < top)
-		my_pixel_put(&cub->image, x, y, 0x87CEEB);
+		my_pixel_put(&cub->mlx.image, x, y, 0x87CEEB);
 	tex_x = get_wall_x(cub, &cub->dda, tex);
 	tex_step = (double)tex->height / wall_h;
 	tex_pos = (top - WIN_H / 2 + wall_h / 2) * tex_step;
@@ -172,14 +172,14 @@ void	draw_3d_wall(t_data *cub, int x, double dist)
 		if (tex_y >= tex->height)
 			tex_y = tex->height - 1;
 		color = tex_pix[tex_y * tex->width + tex_x];
-		my_pixel_put(&cub->image, x, y, color);
+		my_pixel_put(&cub->mlx.image, x, y, color);
 		tex_pos += tex_step;
 		y++;
 	}
 	y = bottom + 1;
 	while (y < WIN_H)
 	{
-		my_pixel_put(&cub->image, x, y, 0x451800);
+		my_pixel_put(&cub->mlx.image, x, y, 0x451800);
 		y++;
 	}
 }

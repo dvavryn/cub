@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 11:53:02 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 16:15:13 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:03:36 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ double	cast_ray_dda(t_data *cub, double angle, double *hitx, double *hity)
 			mapy += dda.stepy;
 			dda.side = 1;
 		}
-		if (mapy < 0 || mapx < 0 || !cub->map[mapy] || mapx >= (int)strlen(cub->map[mapy])) //ft_strlen
+		if (mapy < 0 || mapx < 0 || !cub->map.map[mapy] || mapx >= ft_intlen(cub->map.map[mapy]))
 			break ;
-		if (cub->map[mapy][mapx] == '1')
+		if (cub->map.map[mapy][mapx] == 1)
 			dda.hit = 1;
 	}
 	if (dda.side == 0)

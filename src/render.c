@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:45:13 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 15:51:55 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:59:57 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	render(t_data *cub)
 {
-	bzero(cub->image.address, WIN_H * cub->image.line_length); //ft_bzero
+	ft_bzero(cub->mlx.image.address, WIN_H * cub->mlx.image.line_length);
 	cast_all_rays_3d(cub);
 	draw_minimap(cub);
 	draw_player(cub);
 	cast_rays_minimap(cub);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->image.img, 0, 0);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mlx.image.img, 0, 0);
 }
 
 int	render_loop(t_data *cub)
@@ -49,12 +49,12 @@ int	get_wall_color(t_data *cub, double angle)
 t_img	*get_wall_texture(t_data *cub, t_dda *dda)
 {
 	if (dda->side == 0 && dda->raydirx > 0)
-		return (&cub->east);
+		return (&cub->mlx.east);
 	if (dda->side == 0 && dda->raydirx < 0)
-		return (&cub->west);
+		return (&cub->mlx.west);
 	if (dda->side == 1 && dda->raydiry > 0)
-		return (&cub->south);
-	return (&cub->north);
+		return (&cub->mlx.south);
+	return (&cub->mlx.north);
 }
 
 double	get_wall_x(t_data *cub, t_dda *dda, t_img *tex)

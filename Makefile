@@ -30,7 +30,10 @@ SRC =	src/main.c\
 		src/utils.c\
 		src/raycast.c\
 		src/dda.c\
-		src/cub.c
+		src/cub.c\
+		src/parser/free.c\
+		src/parser/parsing.c\
+		src/parser/utils.c
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 HEAD = inc/cub3d.h

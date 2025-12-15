@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:32:22 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 16:19:08 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:57:42 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	key_handler(t_data *cub)
 		cub->player.angle += rot_speed;
 	cub->player.dir_x = cos(cub->player.angle);
 	cub->player.dir_y = sin(cub->player.angle);
-	if (!is_wall(cub->map, new_x, new_y))
+	if (!is_wall(cub->map.map, new_x, new_y))
 	{
 		cub->player.x = new_x;
 		cub->player.y = new_y;

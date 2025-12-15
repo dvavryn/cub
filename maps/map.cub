@@ -1,7 +1,7 @@
-NO ./src/textures/Wall2.xpm
-SO ./src/textures/Wall7.xpm
-WE ./src/textures/Wall4.xpm
-EA ./src/textures/Wall8.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 
 C 123, 123, 100
 F 123, 123, 123

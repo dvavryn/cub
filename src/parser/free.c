@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:12:55 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 17:36:15 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 19:07:15 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#include "cub3d.h"
 
 void	free_data(t_data *data)
 {

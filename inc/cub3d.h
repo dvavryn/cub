@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 18:23:20 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:10:23 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*                                   INCLUDES                                 */
 /* ************************************************************************** */
 
+# include "libft.h"
 # include <mlx.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -24,7 +25,9 @@
 # include <math.h>
 # include <sys/time.h>
 # include <stdbool.h>
-# include "libft.h"
+#include <errno.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 /* ************************************************************************** */
 /*                                   DEFINES                                  */
@@ -151,7 +154,7 @@ void			draw_minimap(t_data *cub);
 void			draw_square(t_img *img, int x, int y, int size, int color);
 void			key_handler(t_data *cub);
 void			render(t_data *cub);
-int				is_wall(char **map, double x, double y);
+int				is_wall(int **map, double x, double y);
 void			draw_line(t_img *img, double x0, double y0, double x1, double y1);
 double			cast_ray(t_data *cub, double angle, double *hit_x, double *hit_y);
 void			cast_rays_minimap(t_data *cub);
@@ -165,7 +168,7 @@ void			cast_all_rays_3d(t_data *cub);
 void			cast_3d_ray(t_data *cub, double angle, int col);
 int				update(t_data *cub);
 void			draw_circle(t_img *img, int x, int y, int r, int color);
-void			get_map_dimensions(char **map, int *width, int *height);
+void			get_map_dimensions(int **map, int *width, int *height);
 int				get_wall_color(t_data *cub, double angle);
 void			load_texture(t_data *cub, t_img *tex, char *path);
 t_img			*get_wall_texture(t_data *cub, t_dda *dda);
@@ -173,7 +176,8 @@ double			get_wall_x(t_data *cub, t_dda *dda, t_img *tex);
 void			draw_3d_wall(t_data *cub, int x, double dist);
 void			init_player_from_map(t_data *cub);
 char			**duplicate_map(char **map);
-int				cub(t_data *cub);
+void			cub(t_data *cub);
+int				ft_intlen(int *il);
 
 void			free_data(t_data *data);
 void			error_exit(char *str, t_data *data);
