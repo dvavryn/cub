@@ -24,6 +24,7 @@ LIBFT_DIR = ./libft
 # Source files
 SRC =	src/main.c\
 		src/pixelput.c\
+		src/draw_3d_wall.c \
 		src/draw.c\
 		src/key_handler.c\
 		src/render.c\

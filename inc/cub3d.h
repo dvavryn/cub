@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:39:27 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:43:58 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ typedef struct s_data	t_data;
 typedef struct s_config	t_config;
 typedef struct s_map	t_map;
 typedef struct s_point	t_point;
+typedef struct s_draw	t_draw;
+
+struct s_draw
+{
+	t_img	*tex;
+	int		top;
+	int		bottom;
+	double	wall_h;
+	double	tex_step;
+	double	tex_pos;
+	int		y;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+	int		*tex_pix;
+	double	proj_plane;
+};
 
 struct s_player
 {
@@ -176,7 +193,6 @@ double			cast_ray_dda(t_data *cub, double angle,
 					double *hitx, double *hity);
 int				ray_color(double dist);
 void			draw_minimap_ray(t_data *cub, double end_x, double end_y);
-int				render_loop(t_data *cub);
 int				key_press(int key, t_data *cub);
 int				key_release(int key, t_data *cub);
 void			cast_all_rays_3d(t_data *cub);

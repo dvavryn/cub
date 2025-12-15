@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:28:11 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:37:05 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,60 +67,6 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 			/ TILE) * tile_size, .y = MINI_OFFSET + (cub->player.y / TILE)},
 		(t_point){.x = MINI_OFFSET + ray_tile_x * tile_size,
 		.y = MINI_OFFSET + ray_tile_y * tile_size});
-}
-
-void	draw_3d_wall(t_data *cub, int x, double dist)
-{
-	t_img	*tex;
-	int		top;
-	int		bottom;
-	double	wall_h;
-	double	tex_step;
-	double	tex_pos;
-	int		y;
-	int		tex_x;
-	int		tex_y;
-	int		color;
-	int		*tex_pix;
-	double	proj_plane;
-
-	tex = get_wall_texture(cub, &cub->dda);
-	{
-		proj_plane = (WIN_W / 2.0) / tan(FOV / 2.0);
-		wall_h = (TILE / dist) * proj_plane;
-	}
-	top = (WIN_H / 2) - (wall_h / 2);
-	bottom = (WIN_H / 2) + (wall_h / 2);
-	if (top < 0)
-		top = 0;
-	if (bottom >= WIN_H)
-		bottom = WIN_H - 1;
-	y = -1;
-	while (++y < top)
-		my_pixel_put(&cub->mlx.image, x, y, 0x87CEEB);
-	tex_x = get_wall_x(cub, &cub->dda, tex);
-	tex_step = (double)tex->height / wall_h;
-	tex_pos = (top - WIN_H / 2 + wall_h / 2) * tex_step;
-	tex_pix = (int *)tex->address;
-	y = top;
-	while (y <= bottom)
-	{
-		tex_y = (int)tex_pos;
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
-		color = tex_pix[tex_y * tex->width + tex_x];
-		my_pixel_put(&cub->mlx.image, x, y, color);
-		tex_pos += tex_step;
-		y++;
-	}
-	y = bottom + 1;
-	while (y < WIN_H)
-	{
-		my_pixel_put(&cub->mlx.image, x, y, 0x451800);
-		y++;
-	}
 }
 
 int	ray_color(double dist)
