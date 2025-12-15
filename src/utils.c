@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:42:01 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:14:52 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:18:59 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_wall(int **map, double x, double y)
 	return (0);
 }
 
-static double	get_time(void)
+double	get_time(void)
 {
 	struct timeval	tv;
 

@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:18:10 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:24:33 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int				key_release(int key, t_data *cub);
 void			cast_all_rays_3d(t_data *cub);
 void			cast_3d_ray(t_data *cub, double angle, int col);
 int				update(t_data *cub);
-void			draw_circle(t_img *img, int x, int y, int r, int color);
+void			draw_circle(t_img *img, int x, int y, int color);
 int				get_wall_color(t_data *cub, double angle);
 void			load_texture(t_data *cub, t_img *tex, char *path);
 t_img			*get_wall_texture(t_data *cub, t_dda *dda);
@@ -192,6 +192,7 @@ void			init_player_from_map(t_data *cub);
 char			**duplicate_map(char **map);
 void			cub(t_data *cub);
 int				cross(t_data *data);
+double			get_time(void);
 
 void			free_data(t_data *data);
 void			error_exit(char *str, t_data *data);

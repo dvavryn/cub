@@ -6,11 +6,11 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:03:29 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:04:53 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:24:18 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cune3d.h"
+#include "cub3d.h"
 
 void	draw_square(t_img *img, int x, int y, int size, int color)
 {
@@ -61,18 +61,18 @@ void	draw_minimap(t_data *cub)
 	}
 }
 
-void	draw_circle(t_img *img, int x, int y, int r, int color)
+void	draw_circle(t_img *img, int x, int y, int color)
 {
 	int	dx;
 	int	dy;
 
-	dy = -r;
-	while (dy <= r)
+	dy = -2;
+	while (dy <= 2)
 	{
-		dx = -r;
-		while (dx <= r)
+		dx = -2;
+		while (dx <= 2)
 		{
-			if (dx * dx + dy * dy <= r * r)
+			if (dx * dx + dy * dy <= 4)
 				my_pixel_put(img, x + dx, y + dy, color);
 			dx++;
 		}
@@ -94,5 +94,5 @@ void	draw_player(t_data *cub)
 			(double)MINI_SIZE / (double)map_height);
 	minix = MINI_OFFSET + (int)((cub->player.x / TILE) * tile_size);
 	miniy = MINI_OFFSET + (int)((cub->player.y / TILE) * tile_size);
-	draw_circle(&cub->mlx.image, minix, miniy, 2, 0xFF0000);
+	draw_circle(&cub->mlx.image, minix, miniy, 0xFF0000);
 }
