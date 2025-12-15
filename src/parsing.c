@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 16:22:50 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 17:48:54 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,19 @@ void	read_config(t_data *data, char *file)
 		error_exit("malloc failed", data);
 }
 
+
+char *get_text_path(t_data *data, char *buf)
+{
+	char *out;
+
+	out = ft_strtrim(buf + 3, " ");
+	free(buf);
+	if (!out)
+		error_exit("malloc failed", data);
+	printf("%s\n", out);
+	return out;
+}
+
 void	get_config(t_data *data, ssize_t i)
 {
 	char	*ptr;
@@ -176,13 +189,13 @@ void	get_config(t_data *data, ssize_t i)
 		if (!buf)
 			error_exit("malloc failed", data);
 		if (!ft_strncmp("NO ", ptr, 3) && !data->config.north_texture)
-			data->config.north_texture = buf;
+			data->config.north_texture = get_text_path(data, buf);
 		else if (!ft_strncmp("EA ", ptr, 3) && !data->config.east_texture)
-			data->config.east_texture = buf;
+			data->config.east_texture = get_text_path(data, buf);
 		else if (!ft_strncmp("SO ", ptr, 3) && !data->config.south_texture)
-			data->config.south_texture = buf;
+			data->config.south_texture = get_text_path(data, buf);
 		else if (!ft_strncmp("WE ", ptr, 3) && !data->config.west_texture)
-			data->config.west_texture = buf;
+			data->config.west_texture = get_text_path(data, buf);
 		else if (!ft_strncmp("F ", ptr, 2) && !data->config.floor_color)
 			data->config.floor_color = buf;
 		else if (!ft_strncmp("C ", ptr, 2) && !data->config.ceiling_color)
@@ -442,9 +455,6 @@ int	try_open(char *filename)
 {
 	int	fd;
 
-	filename += 3;
-	while (ft_isspace(*filename))
-		filename++;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);

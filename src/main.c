@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:10:05 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 16:20:45 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 17:49:03 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	print_data(t_data *data)
 	c->floor_color, c->floor_color_hex, c->ceiling_color, c->ceiling_color_hex,
 	c->player_position_x, c->player_position_y, 
 		c->player_orientation, m->map_x, m->map_y);
-	for(int i = 0; m->map[i]; i++)
-	{
-		printf("\t");
-		for (int j = 0; (size_t)j < m->map_x; j++)
-		{
-			if (m->map[i][j] < 0)
-				printf("[%d ]", m->map[i][j]);
-			else
-				printf("[ %d ]", m->map[i][j]);
+	// for(int i = 0; m->map[i]; i++)
+	// {
+	// 	printf("\t");
+	// 	for (int j = 0; (size_t)j < m->map_x; j++)
+	// 	{
+	// 		if (m->map[i][j] < 0)
+	// 			printf("[%d ]", m->map[i][j]);
+	// 		else
+	// 			printf("[ %d ]", m->map[i][j]);
 
-		}
-		printf("\n");
-	}	
+	// 	}
+	// 	printf("\n");
+	// }	
 }
 
 int	main(int argc, char **argv)
