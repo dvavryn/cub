@@ -6,13 +6,13 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:35:54 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 21:41:34 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:42:27 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void part_two(t_data *cub, int x, t_draw *d)
+static void	part_two(t_data *cub, int x, t_draw *d)
 {
 	while (d->y <= d->bottom)
 	{
@@ -34,10 +34,9 @@ static void part_two(t_data *cub, int x, t_draw *d)
 	}
 }
 
-
 void	draw_3d_wall(t_data *cub, int x, double dist)
 {
-	t_draw d;
+	t_draw	d;
 
 	d.tex = get_wall_texture(cub, &cub->dda);
 	{
