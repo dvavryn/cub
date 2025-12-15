@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:42:01 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 20:15:38 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:55:51 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ int	update(t_data *cub)
 
 void	load_texture(t_data *cub, t_img *tex, char *path)
 {
-	tex->img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(cub->mlx.mlx,
+			path, &tex->width, &tex->height);
 	if (!tex->img)
 		error_exit(path, cub);
-	tex->address = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_length, &tex->endian);
+	tex->address = mlx_get_data_addr(tex->img, &tex->bpp,
+			&tex->line_length, &tex->endian);
 }
 
 void	init_player_from_map(t_data *cub)
@@ -81,7 +83,6 @@ void	init_player_from_map(t_data *cub)
 char	**duplicate_map(char **map)
 {
 	int		h;
-	int		i;
 	int		j;
 	char	**out;
 
@@ -92,19 +93,18 @@ char	**duplicate_map(char **map)
 	if (!out)
 		return (NULL);
 	out[h] = NULL;
-	i = -1;
-	while (++i < h)
+	h = -1;
+	while (map[++h])
 	{
-		out[i] = malloc(strlen(map[i]) + 1); //ft_strlen
-		if (!out[i])
+		out[h] = malloc(ft_strlen(map[h]) + 1);
+		if (!out[h])
 		{
 			j = -1;
-			while (++j < i)
+			while (++j < h)
 				free(out[j]);
-			free(out);
-			return (NULL);
+			return (free(out), NULL);
 		}
-		strcpy(out[i], map[i]); //ft_strcpy
+		ft_strlcpy(out[h], map[h], ft_strlen(map[h]));
 	}
 	return (out);
 }

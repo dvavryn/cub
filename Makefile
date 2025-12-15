@@ -31,6 +31,7 @@ SRC =	src/main.c\
 		src/raycast.c\
 		src/dda.c\
 		src/cub.c\
+		src/minimap.c\
 		src/parser/check_colors.c \
 		src/parser/extract_map.c \
 		src/parser/free.c \

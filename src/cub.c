@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:46:21 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 19:55:20 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:42:29 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	cub(t_data *cub)
 	cub->mlx.mlx = mlx_init();
 	if (!cub->mlx.mlx)
 		error_exit("mlx failed", cub);
-	init_player_from_map(cub); //
+	init_player_from_map(cub);
 	cub->mlx.win = mlx_new_window(cub->mlx.mlx, WIN_W, WIN_H, "cub3D");
 	if (!cub->mlx.mlx)
 		error_exit("mlx failed", cub);
 	cub->mlx.image.img = mlx_new_image(cub->mlx.mlx, WIN_W, WIN_H);
-	cub->mlx.image.address = mlx_get_data_addr(cub->mlx.image.img, &cub->mlx.image.bpp,
-			&cub->mlx.image.line_length, &cub->mlx.image.endian);
+	cub->mlx.image.address = mlx_get_data_addr(cub->mlx.image.img,
+			&cub->mlx.image.bpp, &cub->mlx.image.line_length,
+			&cub->mlx.image.endian);
 	load_texture(cub, &cub->mlx.north, cub->config.north_texture);
 	load_texture(cub, &cub->mlx.east, cub->config.east_texture);
 	load_texture(cub, &cub->mlx.south, cub->config.south_texture);
