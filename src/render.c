@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:45:13 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 19:55:37 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:15:35 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 void	draw_crosshair(t_data *cub)
 {
-	for (int y = WIN_H / 2 - 16; y < WIN_H / 2 + 15; y++)
+	int	i;
+
+	i = WIN_H / 2 -16;
+	while (i < WIN_H / 2 + 15)
 	{
-		if (y <= WIN_H / 2 - 2 || y > WIN_H / 2 + 2)
+		if (i <= WIN_H / 2 - 2 || i > WIN_H / 2 + 2)
 		{
-			my_pixel_put(&cub->mlx.image, WIN_W / 2, y, 0x0);
-			my_pixel_put(&cub->mlx.image, WIN_W / 2 + 1, y, 0x0);
+			my_pixel_put(&cub->mlx.image, WIN_W / 2, i, 0x0);
+			my_pixel_put(&cub->mlx.image, WIN_W / 2 + 1, i, 0x0);
 		}
+		i++;
 	}
-	for (int x = WIN_W / 2 - 16; x < WIN_W / 2 + 15; x++)
+	i = WIN_W / 2 - 16;
+	while (i < WIN_W / 2 + 15)
 	{
-		if (x <= WIN_W / 2 - 2 || x > WIN_W / 2 + 2)
+		if (i <= WIN_W / 2 - 2 || i > WIN_W / 2 + 2)
 		{
-			my_pixel_put(&cub->mlx.image, x, WIN_H / 2, 0x0);
-			my_pixel_put(&cub->mlx.image, x, WIN_H / 2 + 1, 0x0);
+			my_pixel_put(&cub->mlx.image, i, WIN_H / 2, 0x0);
+			my_pixel_put(&cub->mlx.image, i, WIN_H / 2 + 1, 0x0);
 		}
+		i++;
 	}
 }
 
@@ -40,13 +46,8 @@ void	render(t_data *cub)
 	draw_player(cub);
 	cast_rays_minimap(cub);
 	draw_crosshair(cub);
-	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mlx.image.img, 0, 0);
-}
-
-int	render_loop(t_data *cub)
-{
-	render(cub);
-	return (0);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
+		cub->mlx.image.img, 0, 0);
 }
 
 int	get_wall_color(t_data *cub, double angle)
