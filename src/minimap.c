@@ -6,13 +6,13 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:03:29 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:24:18 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:38:03 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_square(t_img *img, int x, int y, int size, int color)
+static void	draw_square(t_img *img, t_point pos, int size, int color)
 {
 	int	i;
 	int	j;
@@ -22,8 +22,23 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 	{
 		j = -1;
 		while (++j < size)
-			my_pixel_put(img, x + j, y + i, color);
+			my_pixel_put(img, pos.x + j, pos.y + i, color);
 	}
+}
+
+static void	draw_tile(t_data *cub, int mx, int my, double tile_size)
+{
+	int	color;
+	int	size_i;
+
+	size_i = (int)ceil(tile_size);
+	color = 0x999999;
+	if (cub->map.map[my][mx] == 1)
+		color = 0x444444;
+	draw_square(&cub->mlx.image,
+		(t_point){MINI_OFFSET + (int)(mx * tile_size),
+		MINI_OFFSET + (int)(my * tile_size)},
+		size_i, color);
 }
 
 void	draw_minimap(t_data *cub)
@@ -32,29 +47,20 @@ void	draw_minimap(t_data *cub)
 	int		my;
 	int		map_width;
 	int		map_height;
-	int		color;
 	double	tile_size;
-	int		size_i;
 
 	map_height = (int)cub->map.map_y;
 	map_width = (int)cub->map.map_x;
-	my = 0;
 	tile_size = fmin((double)MINI_SIZE / (double)map_width,
 			(double)MINI_SIZE / (double)map_height);
-	size_i = (int)ceil(tile_size);
+	my = 0;
 	while (my < map_height)
 	{
 		mx = 0;
 		while (mx < map_width)
 		{
 			if (cub->map.map[my][mx] != -1)
-			{
-				color = 0x999999;
-				if (cub->map.map[my][mx] == 1)
-					color = 0x444444;
-				draw_square(&cub->mlx.image, MINI_OFFSET + (int)(mx * tile_size),
-					MINI_OFFSET + (int)(my * tile_size), size_i, color);
-			}
+				draw_tile(cub, mx, my, tile_size);
 			mx++;
 		}
 		my++;
