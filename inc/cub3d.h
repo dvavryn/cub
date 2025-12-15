@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 17:31:41 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 18:23:20 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ double			get_wall_x(t_data *cub, t_dda *dda, t_img *tex);
 void			draw_3d_wall(t_data *cub, int x, double dist);
 void			init_player_from_map(t_data *cub);
 char			**duplicate_map(char **map);
+int				cub(t_data *cub);
 
 void			free_data(t_data *data);
 void			error_exit(char *str, t_data *data);
