@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 18:57:23 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:36:33 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,27 @@ void	draw_minimap(t_data *cub)
 	int		map_height;
 	int		color;
 	double	tile_size;
+	int		size_i;
 
-	get_map_dimensions(cub->map.map, &map_width, &map_height);
+	map_height = (int)cub->map.map_y;
+	map_width = (int)cub->map.map_x;
 	my = 0;
-	tile_size = 128 / (double)map_width;
-	if (128 / (double)map_height < tile_size)
-		tile_size = 128 / (double)map_height;
+	tile_size = fmin((double)MINI_SIZE / (double)map_width,
+			(double)MINI_SIZE / (double)map_height);
+	size_i = (int)ceil(tile_size);
 	while (my < map_height)
 	{
 		mx = 0;
 		while (mx < map_width)
 		{
-			color = 0x999999;
-			if (mx < ft_intlen(cub->map.map[my]) && cub->map.map[my][mx] == 1)
-				color = 0x444444;
-			draw_square(&cub->mlx.image, MINI_OFFSET + (int)(mx * tile_size),
-				MINI_OFFSET + (int)(my * tile_size), tile_size + 0.9999, color);
+			if (cub->map.map[my][mx] != -1)
+			{
+				color = 0x999999;
+				if (cub->map.map[my][mx] == 1)
+					color = 0x444444;
+				draw_square(&cub->mlx.image, MINI_OFFSET + (int)(mx * tile_size),
+					MINI_OFFSET + (int)(my * tile_size), size_i, color);
+			}
 			mx++;
 		}
 		my++;
@@ -64,13 +69,12 @@ void	draw_player(t_data *cub)
 	int		map_height;
 	double	tile_size;
 
-	get_map_dimensions(cub->map.map, &map_width, &map_height);
-	if (128 / map_width < 128 / map_height)
-		tile_size = 128 / map_width;
-	else
-		tile_size = 128 / map_height;
-	minix = MINI_OFFSET + (int)(cub->player.x / TILE * tile_size);
-	miniy = MINI_OFFSET + (int)(cub->player.y / TILE * tile_size);
+	map_width = (int)cub->map.map_x;
+	map_height = (int)cub->map.map_y;
+	tile_size = fmin((double)MINI_SIZE / (double)map_width,
+			(double)MINI_SIZE / (double)map_height);
+	minix = MINI_OFFSET + (int)((cub->player.x / TILE) * tile_size);
+	miniy = MINI_OFFSET + (int)((cub->player.y / TILE) * tile_size);
 	draw_circle(&cub->mlx.image, minix, miniy, 2, 0xFF0000);
 }
 
@@ -111,11 +115,10 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 	double	ray_tile_x;
 	double	ray_tile_y;
 
-	get_map_dimensions(cub->map.map, &map_width, &map_height);
-	if (128 / map_width < 128 / map_height)
-		tile_size = 128 / map_width;
-	else
-		tile_size = 128 / map_height;
+	map_width = (int)cub->map.map_x;
+	map_height = (int)cub->map.map_y;
+	tile_size = fmin((double)MINI_SIZE / (double)map_width,
+			(double)MINI_SIZE / (double)map_height);
 	ray_tile_x = end_x / TILE;
 	ray_tile_y = end_y / TILE;
 	if (ray_tile_x < 0)
