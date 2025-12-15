@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:32:22 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 18:57:42 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:58:45 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	key_press(int key, t_data *cub)
 {
 	cub->key[key] = 1;
 	if (key == 65307)
-		exit(0);
+		cross(cub);
 	return (0);
 }
 

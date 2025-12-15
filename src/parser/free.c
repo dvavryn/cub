@@ -6,11 +6,30 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:12:55 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 19:07:15 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:48:44 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	free_mlx(t_data *data)
+{
+	if (data->mlx.mlx)
+	{
+		if (data->mlx.image.img)
+			mlx_destroy_image(data->mlx.mlx, data->mlx.image.img);
+		if (data->mlx.north.img)
+			mlx_destroy_image(data->mlx.mlx, data->mlx.north.img);
+		if (data->mlx.east.img)
+			mlx_destroy_image(data->mlx.mlx, data->mlx.east.img);
+		if (data->mlx.south.img)
+			mlx_destroy_image(data->mlx.mlx, data->mlx.south.img);
+		if (data->mlx.west.img)
+			mlx_destroy_image(data->mlx.mlx, data->mlx.west.img);
+		if (data->mlx.win)
+			mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	}
+}
 
 void	free_data(t_data *data)
 {
@@ -37,5 +56,5 @@ void	free_data(t_data *data)
 			free(data->map.map[i]);
 		free(data->map.map);
 	}
-	// not finished yet... mlx stuff
+	free_mlx(data);
 }

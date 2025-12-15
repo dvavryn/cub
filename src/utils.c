@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:42:01 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 19:10:40 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:40:50 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,6 @@ int	update(t_data *cub)
 	return (0);
 }
 
-void	get_map_dimensions(int **map, int *width, int *height)
-{
-	int	w;
-	int	h;
-	int	len;
-
-	w = 0;
-	h = -1;
-	while (map[++h])
-	{
-		len = ft_intlen(map[h]);
-		if (len > w)
-			w = len;
-	}
-	*width = w;
-	*height = h;
-}
-
 void	load_texture(t_data *cub, t_img *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &tex->width, &tex->height);
@@ -94,48 +76,6 @@ void	init_player_from_map(t_data *cub)
 		cub->player.angle = M_PI;
 	cub->player.dir_x = cos(cub->player.angle);
 	cub->player.dir_y = sin(cub->player.angle);
-
-
-	
-	// int		r;
-	// int		c;
-	// char	**dup;
-
-	// dup = duplicate_map(cub->map);
-	// if (dup)
-	// 	cub->map = dup;
-	// r = 0;
-	// while (cub->map[r])
-	// {
-	// 	c = 0;
-	// 	while (cub->map[r][c])
-	// 	{
-	// 		if (cub->map[r][c] == 'N' || cub->map[r][c] == 'S' || cub->map[r][c] == 'W' || cub->map[r][c] == 'O')
-	// 		{
-	// 			cub->player.x = (c + 0.5) * TILE;
-	// 			cub->player.y = (r + 0.5) * TILE;
-	// 			if (cub->map[r][c] == 'N')
-	// 				cub->player.angle = -M_PI / 2.0;
-	// 			else if (cub->map[r][c] == 'S')
-	// 				cub->player.angle = M_PI / 2.0;
-	// 			else if (cub->map[r][c] == 'W')
-	// 				cub->player.angle = M_PI;
-	// 			else
-	// 				cub->player.angle = 0.0;
-	// 			cub->player.dir_x = cos(cub->player.angle);
-	// 			cub->player.dir_y = sin(cub->player.angle);
-	// 			cub->map[r][c] = '0';
-	// 			return ;
-	// 		}
-	// 		c++;
-	// 	}
-	// 	r++;
-	// }
-	// cub->player.x = 2.5 * TILE;
-	// cub->player.y = 2.5 * TILE;
-	// cub->player.angle = 0;
-	// cub->player.dir_x = cos(cub->player.angle);
-	// cub->player.dir_y = sin(cub->player.angle);
 }
 
 char	**duplicate_map(char **map)
@@ -167,14 +107,4 @@ char	**duplicate_map(char **map)
 		strcpy(out[i], map[i]); //ft_strcpy
 	}
 	return (out);
-}
-
-int	ft_intlen(int	*il)
-{
-	int	len;
-	
-	len = 0;
-	while (il[len])
-		len++;
-	return (len);
 }
