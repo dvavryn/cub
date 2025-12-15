@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 19:07:18 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:14:19 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	read_config(t_data *data, char *file)
 
 	oneline = file_to_string(open(file, O_RDONLY), 1);
 	if (!oneline)
-		error_exit(strerror(errno), data);
+		error_exit("read_config", data);
 	lc = config_linecount(oneline);
 	if (!lc)
 	{

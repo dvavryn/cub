@@ -1,3 +1,5 @@
 .vscode
 *.o
-cub3d
+cub3D
+test.sh
+map2.cub
