@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 19:57:56 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:26:19 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ struct s_player
 	double	dir_x;
 	double	dir_y;
 	double	angle;
+	double	move_speed;
+	double	rot_speed;
 };
 
 struct s_img
@@ -137,7 +139,6 @@ struct s_data
 	t_dda		dda;
 	t_map		map;
 	t_config	config;
-	// char		**map;		// <== should be an int map with sizes | inside of t_map 
 	bool		key[70000];
 	double		last_frame_time;
 	double		delta;
