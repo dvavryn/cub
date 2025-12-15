@@ -1,4 +1,17 @@
-./cub3d maps/missing_texture.cub	#segfault
-# ./cub3d maps/nl_between_info.cub	#segfault
-# ./cub3d maps/space_in_color.cub		#works?!?
-# ./cub3d maps/too_many_maps.cub		#works?!?
+# ./cub3d maps/empty.cub
+# ./cub3d maps/invalid_char_in_map.cub
+# ./cub3d maps/invalid_extension.cubbb
+# ./cub3d maps/lol.cub
+# ./cub3d maps/map.cub
+# ./cub3d maps/misplaced_info.cub
+# ./cub3d maps/missing_texture.cub
+# ./cub3d maps/nl_between_info.cub
+# ./cub3d maps/nl_in_map.cub
+# ./cub3d maps/no_extension
+# ./cub3d maps/no_map.cub
+# ./cub3d maps/only_map.cub
+# ./cub3d maps/random_content.cub
+# ./cub3d maps/space_in_color.cub
+# ./cub3d maps/space_in_map.cub
+# ./cub3d maps/too_many_maps.cub
+# ./cub3d maps/wow.cub

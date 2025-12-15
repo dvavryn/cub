@@ -6,12 +6,11 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:10:05 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/12 15:10:58 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 16:20:45 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
 
 void	print_data(t_data *data)
 {
@@ -25,7 +24,8 @@ void	print_data(t_data *data)
 	"\tsize y: %zu\n"
 	, c->north_texture, c->east_texture, c->south_texture, c->west_texture,
 	c->floor_color, c->floor_color_hex, c->ceiling_color, c->ceiling_color_hex,
-	c->player_position_x, c->player_position_y,	c->player_orientation, m->map_x, m->map_y);
+	c->player_position_x, c->player_position_y, 
+		c->player_orientation, m->map_x, m->map_y);
 	for(int i = 0; m->map[i]; i++)
 	{
 		printf("\t");
@@ -41,15 +41,13 @@ void	print_data(t_data *data)
 	}	
 }
 
-
-
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	data;
+
 	ft_bzero(&data, sizeof(data));
 	parsing(&data, argc, argv);
-
+	print_data(&data);
 	free_data(&data);
 	return (0);
 }

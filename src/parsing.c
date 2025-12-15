@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:14:22 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/09 16:05:30 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 16:22:50 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*file_to_string(int fd, ssize_t bread)
 	return (out);
 }
 
-size_t	config_linecount(char	*s)
+size_t	config_linecount(char *s)
 {
 	size_t	i;
 	size_t	lines;
@@ -69,11 +69,28 @@ size_t	config_linecount(char	*s)
 			lines++;
 		i++;
 	}
-	if (i == 0 || s[i - 1] == '\n')
-		return (lines);
-	else
-		return (lines + 1);
+	return (lines + 1);
 }
+
+// size_t	config_linecount(char *s)
+// {
+// 	size_t	i;
+// 	size_t	lines;
+
+// 	i = 0;
+// 	lines = 0;
+// 	while (s[i])
+// 	{
+// 		if (s[i] == '\n')
+// 			lines++;
+// 		i++;
+// 	}
+// 	// wtf is that segfault
+// 	// if (i == 0 || s[i - 1] == '\n')
+// 	// 	return (lines);
+// 	// else
+// 	return (lines + 1);
+// }
 
 char	**config_split(char *oneline, size_t lines)
 {
@@ -101,7 +118,7 @@ char	**config_split(char *oneline, size_t lines)
 			break ;
 		ptr = ft_strchr(ptr + 1, '\n');
 	}
-	return (out);
+	return ((out[lines] = NULL), out);
 }
 
 char	**config_cleanup(char **in, size_t lines)
@@ -115,7 +132,7 @@ char	**config_cleanup(char **in, size_t lines)
 	if (!out)
 		return (free_split(in), NULL);
 	i = -1;
-	while (in[++i])
+	while (i < (ssize_t)lines && in[++i])
 	{
 		out[i] = ft_strtrim(in[i], "\n");
 		if (!out[i])
@@ -175,8 +192,9 @@ void	get_config(t_data *data, ssize_t i)
 			free(buf);
 			if (!ft_strncmp("NO ", ptr, 3) || !ft_strncmp("EA ", ptr, 3)
 				|| !ft_strncmp("SO ", ptr, 3) || !ft_strncmp("WE ", ptr, 3)
-				|| !ft_strncmp("F ", ptr, 2) || !ft_strncmp("C ", ptr, 2))	
-				error_exit("multipe definition for color or texture path ", data);
+				|| !ft_strncmp("F ", ptr, 2) || !ft_strncmp("C ", ptr, 2))
+				error_exit("multipe definition for color or texture path ",
+					data);
 		}
 		buf = NULL;
 		i++;
@@ -258,6 +276,7 @@ size_t	get_size_map(char **config, char c)
 {
 	size_t	out;
 	size_t	i;
+
 	out = 0;
 	if (c == 'l')
 	{
@@ -328,6 +347,7 @@ void	check_map(t_data*data, int **map, size_t x, size_t y)
 {
 	size_t	i;
 	size_t	j;
+
 	i = 0;
 	while (i < y)
 	{
@@ -379,10 +399,7 @@ int	convert_color(char *s, int *err)
 
 	split = ft_split(s + 2, ',');
 	if (!split)
-	{
-		*err = 1;
-		return (-1);
-	}
+		return ((*err = 1), -1);
 	i = 0;
 	while (split[++i])
 	{
@@ -396,7 +413,8 @@ int	convert_color(char *s, int *err)
 	}
 	if (i != 3)
 		return (free_split(split), -1);
-	out = (ft_atoi(split[0]) << 16) + (ft_atoi(split[1]) << 8) + ft_atoi(split[2]);
+	out = (ft_atoi(split[0]) << 16) + (ft_atoi(split[1]) << 8)
+		+ ft_atoi(split[2]);
 	return (free_split(split), out);
 }
 
@@ -409,24 +427,29 @@ void	check_colors(t_data *data)
 	err = 0;
 	c = data->config.ceiling_color;
 	f = data->config.floor_color;
-	data->config.floor_color_hex = convert_color(data->config.floor_color, &err);
-	data->config.ceiling_color_hex = convert_color(data->config.ceiling_color, &err);
+	data->config.floor_color_hex = convert_color(data->config.floor_color,
+			&err);
+	data->config.ceiling_color_hex = convert_color(data->config.ceiling_color,
+			&err);
 	if (err == 1)
 		error_exit("malloc failed", data);
-	if (data->config.floor_color_hex == -1 || data->config.ceiling_color_hex == -1)
+	if (data->config.floor_color_hex == -1
+		|| data->config.ceiling_color_hex == -1)
 		error_exit("wrong color format", data);
-	
 }
 
-int try_open(char *filename)
+int	try_open(char *filename)
 {
-	int fd;
+	int	fd;
 
-	fd = open(filename + 3, O_RDONLY);
+	filename += 3;
+	while (ft_isspace(*filename))
+		filename++;
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	close(fd);
-	return 1;
+	return (1);
 }
 
 void	validate_files(t_data *data)
