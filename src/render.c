@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:45:13 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 18:59:57 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:55:37 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	draw_crosshair(t_data *cub)
+{
+	for (int y = WIN_H / 2 - 16; y < WIN_H / 2 + 15; y++)
+	{
+		if (y <= WIN_H / 2 - 2 || y > WIN_H / 2 + 2)
+		{
+			my_pixel_put(&cub->mlx.image, WIN_W / 2, y, 0x0);
+			my_pixel_put(&cub->mlx.image, WIN_W / 2 + 1, y, 0x0);
+		}
+	}
+	for (int x = WIN_W / 2 - 16; x < WIN_W / 2 + 15; x++)
+	{
+		if (x <= WIN_W / 2 - 2 || x > WIN_W / 2 + 2)
+		{
+			my_pixel_put(&cub->mlx.image, x, WIN_H / 2, 0x0);
+			my_pixel_put(&cub->mlx.image, x, WIN_H / 2 + 1, 0x0);
+		}
+	}
+}
 
 void	render(t_data *cub)
 {
@@ -19,6 +39,7 @@ void	render(t_data *cub)
 	draw_minimap(cub);
 	draw_player(cub);
 	cast_rays_minimap(cub);
+	draw_crosshair(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mlx.image.img, 0, 0);
 }
 
