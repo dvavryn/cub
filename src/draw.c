@@ -6,13 +6,11 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:10:49 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:15:44 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
 
 void	draw_line(t_img *img, double x0, double y0, double x1, double y1)
 {
@@ -121,4 +119,14 @@ void	draw_3d_wall(t_data *cub, int x, double dist)
 		my_pixel_put(&cub->mlx.image, x, y, 0x451800);
 		y++;
 	}
+}
+
+int	ray_color(double dist)
+{
+	int	intensity;
+
+	intensity = 255 - (int)(dist * 0.15);
+	if (intensity < 20)
+		intensity = 20;
+	return (intensity << 8);
 }

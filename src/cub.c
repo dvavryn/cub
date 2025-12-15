@@ -6,11 +6,23 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 11:46:21 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 20:42:29 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:14:22 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	update(t_data *cub)
+{
+	double	now;
+
+	now = get_time();
+	cub->delta = (now - cub->last_frame_time) / 1000;
+	cub->last_frame_time = now;
+	key_handler(cub);
+	render(cub);
+	return (0);
+}
 
 void	cub(t_data *cub)
 {

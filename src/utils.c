@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:42:01 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 20:55:51 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:14:52 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,12 @@ int	is_wall(int **map, double x, double y)
 	return (0);
 }
 
-int	ray_color(double dist)
-{
-	int	intensity;
-
-	intensity = 255 - (int)(dist * 0.15);
-	if (intensity < 20)
-		intensity = 20;
-	return (intensity << 8);
-}
-
 static double	get_time(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
-
-int	update(t_data *cub)
-{
-	double	now;
-
-	now = get_time();
-	cub->delta = (now - cub->last_frame_time) / 1000;
-	cub->last_frame_time = now;
-	key_handler(cub);
-	render(cub);
-	return (0);
 }
 
 void	load_texture(t_data *cub, t_img *tex, char *path)
