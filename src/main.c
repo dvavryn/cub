@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:10:05 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/09 16:55:25 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/12 15:10:58 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,9 @@ void	print_data(t_data *data)
 int main(int argc, char **argv)
 {
 	t_data	data;
+	ft_bzero(&data, sizeof(data));
 	parsing(&data, argc, argv);
 
-	init_graph(&data);
-
-
-	mlx_hook(data.mlx.win, 17, 1L << 2, destroy, &data);
-	mlx_hook(data.mlx.win, 2, 1L << 0, destroy, &data);
-
-	mlx_loop_hook(data.mlx.mlx, render, &data);
-	mlx_loop(data.mlx.mlx);
 	free_data(&data);
 	return (0);
 }

@@ -12,7 +12,7 @@ $(LIBFT):
 	@make -C libs/libft -s
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lmlx -lX11 -lXext -lm
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 	@echo "Compilation completed!"
 
 objs/%.o: src/%.c | objs
