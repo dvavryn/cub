@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:24:33 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:31:01 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # include <math.h>
 # include <sys/time.h>
 # include <stdbool.h>
-#include <errno.h>
-#include <stdio.h>
-#include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
+# include <fcntl.h>
 
 /* ************************************************************************** */
 /*                                   DEFINES                                  */
@@ -95,11 +95,11 @@ struct s_dda
 	double	sidedistx;
 	double	sidedisty;
 
-	double *hitx;
-	double *hity;
+	double	*hitx;
+	double	*hity;
 
-	int mapx;
-	int mapy;
+	int		mapx;
+	int		mapy;
 };
 
 struct s_mlx
@@ -145,7 +145,6 @@ struct s_point
 	int	y;
 };
 
-
 struct s_data
 {
 	t_mlx		mlx;
@@ -170,7 +169,7 @@ void			draw_square(t_img *img, int x, int y, int size, int color);
 void			key_handler(t_data *cub);
 void			render(t_data *cub);
 int				is_wall(int **map, double x, double y);
-void			draw_line(t_img *img, double x0, double y0, double x1, double y1);
+void			draw_line(t_img *img, t_point start, t_point end);
 double			cast_ray(t_data *cub, double angle, double *hit_x, double *hit_y);
 void			cast_rays_minimap(t_data *cub);
 double			cast_ray_dda(t_data *cub, double angle, double *hitx, double *hity);

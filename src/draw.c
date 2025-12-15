@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:15:44 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:28:11 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_line(t_img *img, double x0, double y0, double x1, double y1)
+void	draw_line(t_img *img, t_point start, t_point end)
 {
 	int		i;
 	double	dx;
 	double	dy;
 	double	steps;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
+	dx = end.x - start.x;
+	dy = end.y - start.y;
 	if (fabs(dx) > fabs(dy))
 		steps = fabs(dx);
 	else
 		steps = fabs(dy);
 	if (steps == 0)
 	{
-		my_pixel_put(img, (int)round(x0), (int)round(y0), 0x00FF00);
+		my_pixel_put(img, (int)round(start.x), (int)round(start.y), 0x00FF00);
 		return ;
 	}
 	dx /= steps;
@@ -35,9 +35,9 @@ void	draw_line(t_img *img, double x0, double y0, double x1, double y1)
 	i = -1;
 	while (++i < (int)steps)
 	{
-		my_pixel_put(img, (int)round(x0), (int)round(y0), 0x00FF00);
-		x0 += dx;
-		y0 += dy;
+		my_pixel_put(img, (int)round(start.x), (int)round(start.y), 0x00FF00);
+		start.x += dx;
+		start.y += dy;
 	}
 }
 
@@ -63,8 +63,10 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 		ray_tile_y = 0;
 	if (ray_tile_y >= map_height)
 		ray_tile_y = map_height - 1;
-	draw_line(&cub->mlx.image, MINI_OFFSET + (cub->player.x / TILE) * tile_size, MINI_OFFSET + (cub->player.y / TILE) * tile_size,
-		MINI_OFFSET + ray_tile_x * tile_size, MINI_OFFSET + ray_tile_y * tile_size);
+	draw_line(&cub->mlx.image, (t_point){.x = MINI_OFFSET + (cub->player.x
+			/ TILE) * tile_size, .y = MINI_OFFSET + (cub->player.y / TILE)},
+		(t_point){.x = MINI_OFFSET + ray_tile_x * tile_size,
+		.y = MINI_OFFSET + ray_tile_y * tile_size});
 }
 
 void	draw_3d_wall(t_data *cub, int x, double dist)
