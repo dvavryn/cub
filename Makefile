@@ -31,9 +31,15 @@ SRC =	src/main.c\
 		src/raycast.c\
 		src/dda.c\
 		src/cub.c\
-		src/parser/free.c\
-		src/parser/parsing.c\
-		src/parser/utils.c
+		src/parser/check_colors.c \
+		src/parser/extract_map.c \
+		src/parser/free.c \
+		src/parser/get_config.c \
+		src/parser/parsing.c \
+		src/parser/read_config.c \
+		src/parser/utils.c \
+		src/parser/validate_files.c \
+		src/parser/validate_map.c
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 HEAD = inc/cub3d.h

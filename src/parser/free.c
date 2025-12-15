@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:12:55 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 20:06:59 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:23:00 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	free_mlx(t_data *data)
 			mlx_destroy_display(data->mlx.mlx);
 			free(data->mlx.mlx);
 		}
-			
 	}
 }
 

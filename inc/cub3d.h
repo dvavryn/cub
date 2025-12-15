@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 20:26:19 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:45:26 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,13 @@ int				cross(t_data *data);
 void			free_data(t_data *data);
 void			error_exit(char *str, t_data *data);
 void			parsing(t_data *data, int argc, char **argv);
+void			read_config(t_data *data, char *file);
+void			get_config(t_data *data, ssize_t i);
+void			check_colors(t_data *data);
+void			extract_map(t_data *data);
+void			validate_map(t_data *data);
+void			validate_files(t_data *data);
+size_t			get_raw_map_size(char **config);
+size_t			get_size_map(char **config, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:13:42 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 20:13:12 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 20:45:19 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,42 @@ int	cross(t_data *data)
 		free_data(data);
 	exit(1);
 	return (0);
+}
+
+size_t	get_raw_map_size(char **config)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (config[i] && !ft_strchr(" \t 01", config[i][0]))
+		i++;
+	while (config[j])
+		j++;
+	return (j - i);
+}
+
+size_t	get_size_map(char **config, char c)
+{
+	size_t	out;
+	size_t	i;
+
+	out = 0;
+	if (c == 'l')
+	{
+		i = 0;
+		while (config[i])
+		{
+			if (ft_strlen(config[i]) > out)
+				out = ft_strlen(config[i]);
+			i++;
+		}
+	}
+	else
+	{
+		while (config[out])
+			out++;
+	}
+	return (out);
 }
