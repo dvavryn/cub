@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:09:50 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/15 21:18:10 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_mlx	t_mlx;
 typedef struct s_data	t_data;
 typedef struct s_config	t_config;
 typedef struct s_map	t_map;
+typedef struct s_point	t_point;
 
 struct s_player
 {
@@ -137,6 +138,13 @@ struct s_config
 	int		player_position_y;
 	char	player_orientation;
 };
+
+struct s_point
+{
+	int	x;
+	int	y;
+};
+
 
 struct s_data
 {
