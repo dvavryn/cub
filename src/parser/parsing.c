@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:25:46 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 20:39:07 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 13:36:50 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	argcheck(int argc, char **argv)
 	len = ft_strlen(argv[1]);
 	if (!len)
 		error_exit("empty filename", NULL);
-	else if (len <= 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
+	else if ((len <= 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
+		|| (ft_strchr(argv[1], '/') && !ft_strncmp(ft_strrchr(argv[1], '/') + 1, ".cub", 4)))
 		error_exit("invalid file extension. expected '.cub'", NULL);
 }
 
