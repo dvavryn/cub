@@ -22,17 +22,17 @@ OBJ_DIR = obj
 LIBFT_DIR = ./libft
 
 # Source files
-SRC =	src/main.c\
-		src/pixelput.c\
+SRC =	src/main.c \
+		src/pixelput.c \
 		src/draw_3d_wall.c \
-		src/draw.c\
-		src/key_handler.c\
-		src/render.c\
-		src/utils.c\
-		src/raycast.c\
-		src/dda.c\
-		src/cub.c\
-		src/minimap.c\
+		src/draw.c \
+		src/key_handler.c \
+		src/render.c \
+		src/utils.c \
+		src/raycast.c \
+		src/dda.c \
+		src/cub.c \
+		src/minimap.c \
 		src/parser/check_colors.c \
 		src/parser/extract_map.c \
 		src/parser/free.c \
