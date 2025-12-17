@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_3d_wall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 21:35:54 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 21:42:27 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 13:25:57 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	part_two(t_data *cub, int x, t_draw *d)
 	d->y = d->bottom + 1;
 	while (d->y < WIN_H)
 	{
-		my_pixel_put(&cub->mlx.image, x, d->y, 0x451800);
+		my_pixel_put(&cub->mlx.image, x, d->y, cub->config.floor_color_hex);
 		d->y++;
 	}
 }
@@ -51,7 +51,7 @@ void	draw_3d_wall(t_data *cub, int x, double dist)
 		d.bottom = WIN_H - 1;
 	d.y = -1;
 	while (++d.y < d.top)
-		my_pixel_put(&cub->mlx.image, x, d.y, 0x87CEEB);
+		my_pixel_put(&cub->mlx.image, x, d.y, cub->config.ceiling_color_hex);
 	d.tex_x = get_wall_x(cub, &cub->dda, d.tex);
 	d.tex_step = (double)d.tex->height / d.wall_h;
 	d.tex_pos = (d.top - WIN_H / 2 + d.wall_h / 2) * d.tex_step;
