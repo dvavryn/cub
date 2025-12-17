@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:32:15 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 13:48:39 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 13:50:25 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static int	convert_color(char *s, int *err)
 
 static int	check_sep(char *s)
 {
-	size_t i;
-	size_t count;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
 	count = 0;
@@ -68,7 +68,6 @@ static int	check_sep(char *s)
 	if (count != 2)
 		return (0);
 	return (1);
-	
 }
 
 void	check_colors(t_data *data)
