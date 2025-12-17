@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:21:15 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:37:05 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 12:00:19 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	draw_minimap_ray(t_data *cub, double end_x, double end_y)
 	if (ray_tile_y >= map_height)
 		ray_tile_y = map_height - 1;
 	draw_line(&cub->mlx.image, (t_point){.x = MINI_OFFSET + (cub->player.x
-			/ TILE) * tile_size, .y = MINI_OFFSET + (cub->player.y / TILE)},
+			/ TILE) * tile_size, .y = MINI_OFFSET + (cub->player.y / TILE) *
+			tile_size},
 		(t_point){.x = MINI_OFFSET + ray_tile_x * tile_size,
 		.y = MINI_OFFSET + ray_tile_y * tile_size});
 }
