@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:31:19 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 12:52:37 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 12:58:17 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ static char	*get_text_path(t_data *data, char *buf)
 int	is_config(char *s)
 {
 	if (!ft_strncmp("NO", s, 2) && (s[2] == 0 || s[2] == ' '))
-		return (0);
+		return (1);
 	else if (!ft_strncmp("EA", s, 2) && (s[2] == 0 || s[2] == ' '))
-		return (0);
+		return (1);
 	else if (!ft_strncmp("SO", s, 2) && (s[2] == 0 || s[2] == ' '))
-		return (0);
+		return (1);
 	else if (!ft_strncmp("WE", s, 2) && (s[2] == 0 || s[2] == ' '))
-		return (0);
+		return (1);
 	else if (*s == 'C' && (s[1] == 0 || s[1] == ' '))
-		return (0);
+		return (1);
 	else if (*s == 'F' && (s[1] == 0 || s[1] == ' '))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 static void	get_config_sub(t_data *data, char *ptr, char *buf)
@@ -57,7 +57,7 @@ static void	get_config_sub(t_data *data, char *ptr, char *buf)
 	else
 	{
 		free(buf);
-		if (!is_config(ptr))
+		if (is_config(ptr))
 			error_exit("multipe definition for color or texture path ",
 				data);
 	}
