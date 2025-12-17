@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:31:19 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 12:44:00 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 12:52:37 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ static char	*get_text_path(t_data *data, char *buf)
 
 int	is_config(char *s)
 {
-	// if (!ft_strncmp("NO ", s, 3) || !ft_strncmp("EA ", s, 3)
-		// || !ft_strncmp("SO ", s, 3) || !ft_strncmp("WE ", s, 3)
-		// || !ft_strncmp("F ", s, 2) || !ft_strncmp("C ", s, 2))
 	if (!ft_strncmp("NO", s, 2) && (s[2] == 0 || s[2] == ' '))
 		return (0);
 	else if (!ft_strncmp("EA", s, 2) && (s[2] == 0 || s[2] == ' '))
@@ -37,9 +34,9 @@ int	is_config(char *s)
 	else if (!ft_strncmp("WE", s, 2) && (s[2] == 0 || s[2] == ' '))
 		return (0);
 	else if (*s == 'C' && (s[1] == 0 || s[1] == ' '))
-		return (0);	
+		return (0);
 	else if (*s == 'F' && (s[1] == 0 || s[1] == ' '))
-		return (0);	
+		return (0);
 	return (1);
 }
 
