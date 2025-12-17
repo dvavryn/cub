@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:32:15 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 12:52:48 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 13:48:39 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ static int	convert_color(char *s, int *err)
 	return (free_split(split), out);
 }
 
+static int	check_sep(char *s)
+{
+	size_t i;
+	size_t count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == ',')
+			count++;
+		i++;
+	}
+	if (count != 2)
+		return (0);
+	return (1);
+	
+}
+
 void	check_colors(t_data *data)
 {
 	char	*c;
@@ -61,6 +80,8 @@ void	check_colors(t_data *data)
 	err = 0;
 	c = data->config.ceiling_color;
 	f = data->config.floor_color;
+	if (!check_sep(c) || !check_sep(f))
+		error_exit("wrong color format", data);
 	data->config.floor_color_hex = convert_color(data->config.floor_color,
 			&err);
 	data->config.ceiling_color_hex = convert_color(data->config.ceiling_color,
@@ -68,7 +89,7 @@ void	check_colors(t_data *data)
 	if (err == 1)
 		error_exit("malloc failed", data);
 	else if (err == 2)
-		error_exit("color format", data);
+		error_exit("wrong color format", data);
 	if (data->config.floor_color_hex == -1
 		|| data->config.ceiling_color_hex == -1)
 		error_exit("wrong color format", data);
