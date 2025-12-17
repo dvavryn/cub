@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
+/*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:12:41 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 22:07:34 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 12:02:54 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define MAX_DIST 2000
 # define NUM_RAYS WIN_W
 # define MINI_SCALE 0.2
-# define MINI_SIZE 150
+# define MINI_SIZE 200
 # define MINI_OFFSET 10
 # define MINIMAP_RADIUS 8
 
