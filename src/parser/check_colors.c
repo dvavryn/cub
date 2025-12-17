@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:32:15 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 20:42:24 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/17 12:30:02 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	convert_color(char *s, int *err)
 	if (!split)
 		return ((*err = 1), -1);
 	i = 0;
-	while (split[++i])
+	while (split[i])
 	{
 		j = 0;
 		if (!color_check_format(split[i]))
@@ -67,6 +67,8 @@ void	check_colors(t_data *data)
 			&err);
 	if (err == 1)
 		error_exit("malloc failed", data);
+	else if (err == 2)
+		error_exit("color format", data);
 	if (data->config.floor_color_hex == -1
 		|| data->config.ceiling_color_hex == -1)
 		error_exit("wrong color format", data);
