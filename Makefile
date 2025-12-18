@@ -1,33 +1,84 @@
-NAME := cub3d
-CC := cc
-CFLAGS := -Wall -Wextra -Werror -g
-INC := -Iinc -Ilibs/libft
-SRCS := $(wildcard src/*.c)
-OBJS := $(patsubst src/%.c, objs/%.o, $(SRCS))
-LIBFT := libs/libft/libft.a
+#Makefile for cub3D
 
-all: $(LIBFT) $(NAME)
+# Project name
+NAME = cub3D
+
+# Supress directory change
+MAKEFLAGS += --no-print-directory
+
+# Colours
+GREEN = \033[0;32m
+RED = \033[0;31m
+
+# Compiler and flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+MLX = -Lmlx -lmlx -lXext -lX11 -lm
+INCLUDES = -I./inc -I./libft
+
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+LIBFT_DIR = ./libft
+
+# Source files
+SRC =	src/main.c \
+		src/pixelput.c \
+		src/draw_3d_wall.c \
+		src/draw.c \
+		src/key_handler.c \
+		src/render.c \
+		src/utils.c \
+		src/raycast.c \
+		src/dda.c \
+		src/cub.c \
+		src/minimap.c \
+		src/parser/check_colors.c \
+		src/parser/extract_map.c \
+		src/parser/free.c \
+		src/parser/get_config.c \
+		src/parser/parsing.c \
+		src/parser/read_config.c \
+		src/parser/utils.c \
+		src/parser/validate_files.c \
+		src/parser/validate_map.c
+
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+HEAD = inc/cub3d.h
+
+# Libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+# Rules
+all: $(NAME)
+
+$(NAME): $(OBJ_DIR) $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(MLX) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)✅ $(NAME) Compiled successfully!"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEAD)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 $(LIBFT):
-	@make -C libs/libft -s
-
-$(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
-
-objs/%.o: src/%.c | objs
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-objs:
-	@mkdir -p objs
+	@make -C $(LIBFT_DIR)
 
 clean:
-	@rm -rf objs
-	@make -C libs/libft clean -s
+	@rm -rf $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
+	@echo "$(RED)🧹 Object files removed!"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libs/libft fclean -s
+	@make fclean -C $(LIBFT_DIR)
+	@echo "$(RED)🧹 $(NAME) removed!"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug: CFLAGS += -g
+debug: re
+
+.PHONY: all clean fclean re debug
