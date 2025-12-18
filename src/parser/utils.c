@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 19:13:42 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/15 20:45:19 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:37:14 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // strerror: error message, data: either data or NULL
 void	error_exit(char *str, t_data *data)
 {
-	ft_putstr_fd("cub3d: Error: ", STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	if (errno)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);

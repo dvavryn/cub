@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:31:19 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 12:58:17 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:52:02 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,30 @@ static void	get_config_sub(t_data *data, char *ptr, char *buf)
 	}
 }
 
+int	check_map_newline(char **map)
+{
+	size_t	i;
+	int		end;
+
+	i = 0;
+	end = 0;
+	while (map[i])
+	{
+		if (end == 0)
+		{
+			if (ft_strlen(map[i]) == 0)
+				end = 1;
+		}
+		else
+		{
+			if (ft_strlen(map[i]))
+				return 0;
+		}
+		i++;
+	}
+	return 1;
+}
+
 void	get_config(t_data *data, ssize_t i)
 {
 	char	*ptr;
@@ -79,4 +103,6 @@ void	get_config(t_data *data, ssize_t i)
 		buf = NULL;
 		i++;
 	}
+	if (!check_map_newline(data->config.raw_config + i))
+		error_exit("invalid '\\n' inside of map", data);
 }
