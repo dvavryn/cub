@@ -6,7 +6,7 @@
 /*   By: bschwarz <bschwarz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:42:01 by bschwarz          #+#    #+#             */
-/*   Updated: 2025/12/15 21:18:59 by bschwarz         ###   ########.fr       */
+/*   Updated: 2025/12/18 13:55:29 by bschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_player_from_map(t_data *cub)
 	cub->player.y = (cub->config.player_position_y + 0.5) * TILE;
 	if (cub->config.player_orientation == 'N')
 		cub->player.angle = -M_PI / 2;
-	else if (cub->config.player_orientation == 'O')
+	else if (cub->config.player_orientation == 'E')
 		cub->player.angle = 0;
 	else if (cub->config.player_orientation == 'S')
 		cub->player.angle = M_PI / 2;
