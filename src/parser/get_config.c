@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:31:19 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/18 14:52:02 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/18 14:54:25 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int	check_map_newline(char **map)
 		else
 		{
 			if (ft_strlen(map[i]))
-				return 0;
+				return (0);
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 void	get_config(t_data *data, ssize_t i)
