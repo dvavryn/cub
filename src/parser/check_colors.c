@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:32:15 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 13:50:25 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/18 13:52:50 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	color_check_format(char *s)
 {
 	ssize_t	i;
 
-	i = 0;
+	i = -1;
 	while (s[++i] && (ft_isspace(s[i]) || ft_isdigit(s[i])))
 		;
 	if (s[i])
