@@ -6,7 +6,7 @@
 /*   By: dvavryn <dvavryn@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 20:25:46 by dvavryn           #+#    #+#             */
-/*   Updated: 2025/12/17 13:50:10 by dvavryn          ###   ########.fr       */
+/*   Updated: 2025/12/23 14:07:25 by dvavryn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,37 @@ static void	argcheck(int argc, char **argv)
 		error_exit("invalid file extension. expected '.cub'", NULL);
 }
 
+static void	check_garbage(t_data *data)
+{
+	ssize_t	i;
+	size_t	j;
+	char	*ptr;
+
+	i = -1;
+	while (data->config.raw_config[++i])
+	{
+		j = 0;
+		ptr = data->config.raw_config[i];
+		while (ptr[j] && ft_isspace(ptr[j]))
+			j++;
+		if (ft_strlen(ptr) == 0 || ((!ft_strncmp("NO", &ptr[j], 2)
+					|| !ft_strncmp("SO", &ptr[j], 2)
+					|| !ft_strncmp("EA", &ptr[j], 2)
+					|| !ft_strncmp("WE", &ptr[j], 2)) && ft_isspace(ptr[j + 2]))
+			|| ((ptr[j] == 'C' || ptr[j] == 'F') && ft_isspace(ptr[j + 1]))
+			|| ptr[j] == '1')
+			continue ;
+		else
+			error_exit("invalid line in config", data);
+	}
+}
+
 void	parsing(t_data *data, int argc, char **argv)
 {
 	ft_bzero(data, sizeof(t_data));
 	argcheck(argc, argv);
 	read_config(data, argv[1]);
+	check_garbage(data);
 	get_config(data, 0);
 	if (!data->config.north_texture || !data->config.east_texture
 		|| !data->config.south_texture || !data->config.west_texture)
