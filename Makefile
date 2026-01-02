@@ -66,6 +66,7 @@ $(OBJ_DIR):
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
+
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBFT_DIR)
@@ -81,4 +82,6 @@ re: fclean all
 debug: CFLAGS += -g
 debug: re
 
-.PHONY: all clean fclean re debug
+bonus: fclean all
+
+.PHONY: all clean fclean re debug bonus
